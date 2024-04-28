@@ -1,61 +1,45 @@
-#include<iostream>
-using namespace std;
+/****************************************************************
 
-class node {
-    public:
-    int data;
-    node* next;
-    node* prev;
+    Following is the class structure of the Node class:
 
-    node(int val) {
-        this->data = val;
-        this->next = NULL;
-        this->prev = NULL;
-    }
-};
+        class Node
+        {
+        public:
+            int data;
+            Node *next;
+            Node()
+            {
+                this->data = 0;
+                next = NULL;
+            }
+            Node(int data)
+            {
+                this->data = data;
+                this->next = NULL;
+            }
+            Node(int data, Node* next)
+            {
+                this->data = data;
+                this->next = next;
+            }
+        };
+        
 
-
-void display(node* head) {
-    node* temp = head;
+*****************************************************************/
+#include <stack>
+Node* reverseLinkedList(Node *head)
+{
+    Node* temp = head;
+    Node* prev = NULL;
+    Node* front = NULL;
 
     while(temp != NULL) {
-        cout << temp->data << " -> ";
-        temp = temp->next;
+        front = temp->next;
+        temp->next = prev;
+        prev = temp;
+        temp = front;
     }
-    cout << "NULL" <<endl ;
-}
 
-void insertAtTail(node* tail , int val) {
-    node* temp = new node(val);
-
-    while(tail ->next != NULL) {
-        tail = tail->next;
-    }
-    tail->next = temp;
-    temp->prev = tail;
-    tail = tail->next;
-}
-// optimal
-
-void reverse(node*head) {
-    node* temp = head;
-    node* curr = temp->next;
-
-    temp = curr->next;
-
+    return prev;
     
-}
-
-int main(){
-    node* n1 = new node(10);
-    node* tail = n1;
-    node* head = n1;
-    insertAtTail(tail , 20);
-    insertAtTail(tail , 30);
-    insertAtTail(tail , 40);
-    insertAtTail(tail , 50);
-    display(head);
-    reverse(head);
-
-    return 0;
 }
